@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="UWb-5Z-VuF">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Aey-Z0-6JB">
+            <objects>
+                <viewController id="UWb-5Z-VuF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DUh-Ca-Aqu"/>
+                        <viewControllerLayoutGuide type="bottom" id="1cC-CG-J49"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Zy-K5-BIT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="LjJ-aw-RDK" userLabel="Logo">
+                                <rect key="frame" x="0.0" y="55" width="320" height="154"/>
+                            </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hdD-8I-xmI">
+                                <rect key="frame" x="142" y="237" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="A5n-tJ-f16"/>
+                                </constraints>
+                                <color key="color" red="0.8862745098" green="0.49019607840000001" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="accroche" translatesAutoresizingMaskIntoConstraints="NO" id="cga-Oz-fhU" userLabel="Accroche">
+                                <rect key="frame" x="57" y="295" width="206" height="126"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="126" id="TXn-d2-07G"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="illustration-home" translatesAutoresizingMaskIntoConstraints="NO" id="RSy-up-bFD" userLabel="Illustration Home">
+                                <rect key="frame" x="9" y="378" width="311" height="190"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="0yD-1W-7Kg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RSy-up-bFD" secondAttribute="trailing" id="44m-SF-bmz"/>
+                            <constraint firstItem="hdD-8I-xmI" firstAttribute="top" secondItem="LjJ-aw-RDK" secondAttribute="bottom" constant="28" id="7Eg-b6-19z"/>
+                            <constraint firstItem="hdD-8I-xmI" firstAttribute="centerX" secondItem="cga-Oz-fhU" secondAttribute="centerX" id="CZs-VY-rOu"/>
+                            <constraint firstItem="LjJ-aw-RDK" firstAttribute="top" secondItem="DUh-Ca-Aqu" secondAttribute="bottom" constant="35" id="D3n-04-oEj"/>
+                            <constraint firstItem="RSy-up-bFD" firstAttribute="bottom" secondItem="1cC-CG-J49" secondAttribute="top" id="Efs-Tc-Mlh"/>
+                            <constraint firstItem="cga-Oz-fhU" firstAttribute="leading" secondItem="9Zy-K5-BIT" secondAttribute="leadingMargin" constant="41" id="Q9j-DD-M6L"/>
+                            <constraint firstItem="RSy-up-bFD" firstAttribute="leading" secondItem="9Zy-K5-BIT" secondAttribute="leadingMargin" constant="-7" id="los-Kr-oGb"/>
+                            <constraint firstItem="LjJ-aw-RDK" firstAttribute="trailing" secondItem="RSy-up-bFD" secondAttribute="trailing" id="meD-XE-2Em"/>
+                            <constraint firstItem="hdD-8I-xmI" firstAttribute="centerX" secondItem="LjJ-aw-RDK" secondAttribute="centerX" id="qoy-A1-PdU"/>
+                            <constraint firstItem="1cC-CG-J49" firstAttribute="top" secondItem="cga-Oz-fhU" secondAttribute="bottom" constant="147" id="te2-p1-qKN"/>
+                            <constraint firstItem="cga-Oz-fhU" firstAttribute="top" secondItem="hdD-8I-xmI" secondAttribute="bottom" constant="21" id="wH3-Qw-f6g"/>
+                            <constraint firstItem="LjJ-aw-RDK" firstAttribute="leading" secondItem="9Zy-K5-BIT" secondAttribute="leading" id="zrG-EC-9Ct"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loadingProgress" destination="hdD-8I-xmI" id="wAP-f5-sDt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mcG-Js-KFC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-163" y="40"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="accroche" width="366" height="189"/>
+        <image name="illustration-home" width="750" height="457"/>
+        <image name="logo" width="283" height="410"/>
+    </resources>
+</document>

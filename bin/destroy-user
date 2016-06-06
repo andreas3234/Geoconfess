@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# SYNOPSIS
+#		destroy-user <user-email> <user-password>
+# 
+# DESCRIPTION
+#		Destroys the specified user from out backend.
+#
+#		References:
+# 		http://geoconfess.herokuapp.com/apidoc/V1/users/destroy.html
+
+script=$(basename $0)
+bin=$(dirname $0)
+source "$bin/geoconfess-kit"
+
+function show_usage {
+	echo "usage: $script: <username> <password>"
+}
+
+# User auth info.
+username="$1"
+password="$2"
+if [[ -z "$username" ]]; then
+	error "missing username"
+	show_usage
+	exit 1
+fi
+if [[ -z "$password" ]]; then
+	error "missing password"
+	show_usage
+	exit 1
+fi
+
+# User login.
+access_token=$($script_dir/oauth-token $username $password)
+test $? != 0 && exit 1
+
+# User information.
+me_response=$(curl --silent \
+	-F access_token=$access_token \
+	-X GET "$geoconfess_url/api/v1/me")
+uid=$(echo $me_response | json_int_value id)
+
+# Destroy user (limited to admins only).
+admin_access_token=$($bin/oauth-token admin@example.com 1q2w3e4r)
+test $? != 0 && exit 1
+curl --silent -I \
+	-H "Authorization: Bearer $admin_access_token" \
+	-X DELETE "$geoconfess_url/api/v1/users/$uid"  \
+	| head -1

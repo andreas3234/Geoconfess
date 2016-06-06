@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# SYNOPSIS
+#		show-user <username> <password>
+# 
+# DESCRIPTION
+#		Shows information about the specified user.
+#
+#		References:
+# 		http://geoconfess.herokuapp.com/apidoc/V1/credentials/show.html
+
+script=$(basename $0)
+bin=$(dirname $0)
+source "$bin/geoconfess-kit"
+
+function show_usage {
+	echo "usage: $script: <username> <password>"
+}
+
+# User auth info.
+username="$1"
+password="$2"
+if [[ -z "$username" ]]; then
+	error "missing username"
+	show_usage
+	exit 1
+fi
+if [[ -z "$password" ]]; then
+	error "missing password"
+	show_usage
+	exit 1
+fi
+
+# User login.
+access_token=$($bin/oauth-token $username $password)
+test $? != 0 && exit 1
+
+# User information.
+me_response=$(curl --silent \
+	-F access_token=$access_token \
+	-X GET "$geoconfess_url/api/v1/me")
+echo $me_response | json_pp

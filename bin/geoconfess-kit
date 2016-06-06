@@ -1,0 +1,75 @@
+#!/bin/bash
+#
+# SYNOPSIS
+#		source geoconfess-kit
+# 
+# DESCRIPTION
+#		Shared constants and functions.
+#
+#		Includes, a *very* simple logging API for scripts.
+#		Among other things, it unifies scripts logging style.
+
+# Our server/backend URL. 
+geoconfess_url="https://geoconfess.herokuapp.com/"
+
+# Returns the *string* value for the specified key.
+function json_string_value {
+	local key="$1"
+	sed -Ee 's/.*"'$key'"[:]"([^"]+)".*/\1/'
+}
+
+# Returns the *int* value for the specified key.
+function json_int_value {
+	local key="$1"
+	sed -Ee 's/.*"'$key'"[:]([0-9]+).*/\1/'
+}
+
+# Simple logging.
+function log {
+	echo -n -e "${black}${plain}$@"
+}
+
+# Emphasizes (ie, highlights) all arguments.
+function em {
+	echo -e "${bold}${cyan}$@${plain}"
+}
+
+# Underlines all arguments.
+function u {
+	echo -e "${underline}$@${plain}"
+}
+
+# Formats error message.
+# If no args are given, reads from stdin.
+function error {
+	echo -n -e "${underline}${red}error${plain}: " >&2
+	if [[ "$@" != "" ]]; then
+		echo -e "$@" >&2 
+	else
+		# Reads from stdin (to stderr).
+		cat >&2
+	fi
+}
+
+# Exits script with specified message.
+# If no args are given, reads from stdin.
+function exit_with_error {
+	error "$@"
+	exit 1
+}
+
+# Some cool colors!
+black=$(tput setaf 0)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
+cyan=$(tput setaf 6)
+gray=$(tput setaf 7)
+
+# Some cool styles!
+plain=$(tput sgr0)
+bold=$(tput bold)
+underline=$(tput smul)
+reverse=$(tput smso)

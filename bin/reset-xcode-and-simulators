@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+# SYNOPSIS
+#		reset-xcode-and-simulators
+# 
+# DESCRIPTION
+#		Reset Xcode and all iOS simulators.
+#		
+#		References:
+# 		https://gist.github.com/ZevEisenberg/5a172662cb576872d1ab
+
+# Set up.
+script=$(basename $0)
+script_dir=$(dirname $0)
+repodir=$(dirname $0)/..
+source "$script_dir/geoconfess-kit"
+
+# A POSIX variable. 
+# Reset in case getopts has been used previously in the shell.
+OPTIND=1         
+
+# CLI options.
+function show_usage {
+	echo "usage: $script: [-h] [-x] [-s]"
+}
+xcode=1
+simulator=1
+while getopts "h?xs" opt; do
+	case "$opt" in
+	h|\?)
+		show_usage
+		exit 0
+		;;
+	x)  
+		xcode=1
+		simulator=0
+		;;
+	s)  
+		xcode=0
+		simulator=1
+		;;
+	esac
+done
+
+# Xcode cleanup.
+if [[ $xcode -eq 1 ]]; then
+	log "Xcode reset... "
+	osascript -e 'tell application "Xcode" to quit' || exit_with_error "Xcode"
+	rm -rf $repodir/DerivedData/ 					|| exit_with_error "Xcode"
+	rm -rf $HOME/Library/Caches/com.apple.dt.Xcode/ || exit_with_error "Xcode"
+	em "OK"
+fi
+
+# iOS Simulator cleanup.
+if [[ $simulator -eq 1 ]]; then
+	log "iOS Simulators reset... "
+	osascript -e 'tell application "iOS Simulator" to quit' || exit_with_error "Simulator"
+	osascript -e 'tell application "Simulator" to quit' 	|| exit_with_error "Simulator"
+	xcrun simctl erase all 									|| exit_with_error "Simulator"
+	em "OK"
+fi

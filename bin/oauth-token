@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# SYNOPSIS
+#		oauth-token <username> <password>
+# 
+# DESCRIPTION
+#		Authenticas the specified user and prints the resulting `access_token`.
+#
+#		References:
+# 		http://geoconfess.herokuapp.com/apidoc/V1.html
+
+script=$(basename $0)
+script_dir=$(dirname $0)
+source "$script_dir/geoconfess-kit"
+
+function show_usage {
+	echo "usage: $script: <username> <password>"
+}
+
+# User auth info.
+username="$1"
+password="$2"
+
+if [[ -z "$username" ]]; then
+	error "missing username"
+	show_usage
+	exit 1
+fi
+
+if [[ -z "$password" ]]; then
+	error "missing password"
+	show_usage
+	exit 1
+fi
+
+# User login.
+# Expected response: {"access_token":"dd03...","token_type":"bearer",...}
+oauth_response=$(\
+	curl --silent \
+	-F grant_type=password \
+	-F username=$username \
+	-F password=$password \
+	-X POST $geoconfess_url/oauth/token)
+echo $oauth_response | grep error > /dev/null
+if [[ $? = 0 ]]; then
+	error_info=$(echo $oauth_response | json_string_value error)
+	error "OAuth failed for $username: $error_info"
+	exit 1
+fi
+
+# Returns only the `access_token` key value.
+access_token=$(echo $oauth_response | json_string_value access_token)
+echo $access_token

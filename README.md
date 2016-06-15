@@ -30,22 +30,6 @@ Please configure your Xcode to the following settings:
 
 All settings above are available at: *Xcode* > *Preferences...* > *Text Editing*.
 
-### Xcode and iOS Simulator Issues
-
-If your iOS Simulator is hanging 
-[this](https://forums.developer.apple.com/thread/24274) might bring you some relief :-) 
-
-Basically, some OS X apps (eg, *BetterSnapTool*, *Flexiglass*, *Upwork*, etc) 
-seems to be conflicting with the iOS Simulator.
-This issue is related to accessibility features in OS X.
-This is a [known bug](http://www.openradar.me/23504761) since Xcode **7.1**. 
-(If you need help fixing this, please talk to developer 
-[pmattos](https://github.com/pmattos).)
-
-If everything else fails, try a full reset:
-
-	bin/reset-xcode-and-simulators
-
 ## Test Accounts
 
 Some useful accounts for testing:
